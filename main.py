@@ -1,10 +1,32 @@
 from spy_details import spy_name, spy_salutation, spy_age, spy_rating
 print "Let\'s gets started"
 
+def add_status(current_status_message):
+    if current_status_message != None:
+        print "Your current status message is " + current_status_message + "\n"
+    else:
+        print 'You don\'t have any status message currently \n'
+
+    default = input("Do you want to choose from older status (y/n)?")
+
+def start_chat(spy_name,spy_age,spy_rating):
+    show_menu = True
+    current_status_message = None
+
+    while show_menu :
+        menu_choices = "What do you want to do? \n1.Add a status update.\n2. Close app"
+        menu_choice = input(menu_choices)
+        if menu_choice == 1:
+            add_status(current_status_message)
+        elif menu_choice == 2:
+            show_menu = False
+        else :
+            print "You did'nt choose any option."
+
 user_select = raw_input("Continue as " + spy_salutation + " " + spy_name + "(Y/N)?")
 
 if user_select == "Y":
-    print "app starting."
+    start_chat(spy_name,spy_age,spy_rating)
 else:
     spy_name = raw_input("Welcome to spyChat app. But first tell me your spyName: ")
     if len(spy_name) > 0:
