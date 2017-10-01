@@ -27,7 +27,7 @@ if len(spy_name) > 0 :
         else :
             print "We can always use somebody in the office"
         spy_is_online = True
-        print "Authentication complete. Welcome " + spy_name + " age: " + spy_age + " and rating of: " + spy_rating + " Proud to have you onboard"
+        print "Authentication complete. Welcome %s age: %d and rating of: %.2f Proud to have you onboard" % (spy_name, spy_age, spy_rating)
 
     else:
         print "You are not in condition to be a spy."
