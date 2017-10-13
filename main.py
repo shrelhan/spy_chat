@@ -1,4 +1,6 @@
 from spy_details import spy
+from steganography.steganography import Steganography
+from datetime import datetime
 
 STATUS_MESSAGES = ['My name is Bond, James Bond', 'Shaken, not stirred.', 'Keeping the British end up, Sir']
 
@@ -8,6 +10,50 @@ print "Let\'s gets started"
 
 user_select = "Continue as " + spy['salutation'] + " " + spy['name'] + "(Y/N)?"
 existing = raw_input(user_select)
+
+def read_message():
+    sender = select_a_friend()
+
+    output_path = input("What is the name of the file?")
+    secret_text = Steganography.decode(output_path)
+
+    new_chat = {
+        "message": secret_text,
+        "time": datetime.now(),
+        "sent_by_me": False
+    }
+
+    friend[sender]['chats'].append(new_chat)
+    print "Your secret message has been saved!"
+
+def send_message():
+    friend_choice = select_a_friend()
+
+    original_image = raw_input("What is the name of the image?")
+    output_path = 'output.jpg'
+    text = raw_input("What do you want to say?")
+    Steganography.encode(original_image, output_path, text)
+
+    new_chat = {
+        "message": text,
+        "time": datetime.now(),
+        "sent_by_me": True
+    }
+
+    friend[friend_choice]['chats'].append(new_chat)
+    print "Your secret message is ready!"
+
+def select_a_friend():
+    item_number = 0
+
+    for friend in friends:
+        print "%d. %s %s age %d with rating %.2f is online" % (item_number +1, friend.salutation,friend.name,friend.age,friend.rating)
+        item_number = item_number + 1
+
+    friend_choice = raw_input("Choose a friend from your friends")
+    friend_choice_position = int(friend_choice) - 1
+
+    return friend_choice_position
 
 def add_status(current_status_message):
     updated_status_message = None
@@ -90,6 +136,10 @@ def start_chat(spy):
             elif menu_choice == 2:
                 number_of_friends = add_friend()
                 print 'You have %d friends' % (number_of_friends)
+            elif menu_choice == 3:
+                send_message()
+            elif menu_choice == 4:
+                read_message()
             else:
                 show_menu = False
     else:
