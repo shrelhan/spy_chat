@@ -14,7 +14,7 @@ existing = raw_input(user_select)
 def read_message():
     sender = select_a_friend()
 
-    output_path = input("What is the name of the file?")
+    output_path = raw_input("What is the name of the file?")
     secret_text = Steganography.decode(output_path)
 
     new_chat = {
@@ -23,7 +23,7 @@ def read_message():
         "sent_by_me": False
     }
 
-    friend[sender]['chats'].append(new_chat)
+    friends[sender]['chats'].append(new_chat)
     print "Your secret message has been saved!"
 
 def send_message():
@@ -40,14 +40,14 @@ def send_message():
         "sent_by_me": True
     }
 
-    friend[friend_choice]['chats'].append(new_chat)
+    friends[friend_choice]['chats'].append(new_chat)
     print "Your secret message is ready!"
 
 def select_a_friend():
     item_number = 0
 
     for friend in friends:
-        print "%d. %s %s age %d with rating %.2f is online" % (item_number +1, friend.salutation,friend.name,friend.age,friend.rating)
+        print "%d. %s age %d with rating %.2f is online" % (item_number +1,friend['name'],friend['age'],friend['rating'])
         item_number = item_number + 1
 
     friend_choice = raw_input("Choose a friend from your friends")
@@ -98,11 +98,12 @@ def add_friend():
         'name': '',
         'salutation': '',
         'age': 0,
-        'rating': 0.0
+        'rating': 0.0,
+        'chats' : []
     }
 
     new_friend['name'] = raw_input("Please add your friend's name: ")
-    new_friend['salutation'] = raw_input("Are they Mr. or Ms.?: ")
+    new_friend['salutation'] = raw_input("Mr. or Ms.?: ")
     new_friend['name'] = new_friend['salutation'] + " " + new_friend['name']
 
     new_friend['age'] = input("Age?")
